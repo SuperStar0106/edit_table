@@ -14,7 +14,7 @@ export const ModalComponentStyle = styled('div')<ModalComponentStyleProps>(
       ".modal": {
         position: "fixed",
         zIndex: 1,
-        paddingTop: "100px",
+        paddingTop: "50px",
         left: 0,
         top: 0,
         width: "100%",
@@ -26,7 +26,7 @@ export const ModalComponentStyle = styled('div')<ModalComponentStyleProps>(
       /* Modal Content */
       ".modal-content": {
         position: "relative",
-        backgroundColor: customTheme.colors.white,
+        backgroundColor: customTheme.colors.primary80,
         margin: "auto",
         padding: 0,
         border: "1px solid " + customTheme.colors.primary40,
@@ -77,6 +77,11 @@ export const ModalComponentStyle = styled('div')<ModalComponentStyleProps>(
         padding: "2px 16px",
         backgroundColor: customTheme.colors.primary40,
         color: "white",
+      },
+
+      ".button-container": {
+        display: "flex",
+        justifyContent: "flex-end",
       },
     };
   }
