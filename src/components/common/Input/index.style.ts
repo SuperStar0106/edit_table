@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { StyledComponentProps, styled } from '@mui/material';
-import { CustomTheme } from '../../styles/type';
+import { CustomTheme } from '../../../styles/type';
 
 type InputComponentStyleProps = StyledComponentProps &
   Pick<InputHTMLAttributes<HTMLInputElement>, 'disabled'> & {
@@ -18,10 +18,10 @@ export const InputComponentStyle = styled(
   return {
     paddingLeft: '16px',
     paddingRight: '16px',
-    color: customTheme.colors.white,
+    color: customTheme.colors.primary40,
     borderRadius: '12px',
     outline: 'none',
-    height: '5.5rem',
+    height: '4.0rem',
     width: '100%',
     display: 'flex',
     alignItems: 'center',

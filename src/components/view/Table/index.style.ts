@@ -15,7 +15,12 @@ export const TableViewSytle = styled('div')<TableViewStyleProps>(
             justifyContent: 'center',
             alignItems: 'center',
             boxSizing: 'border-box',
-            flexDirection: 'column'
+            flexDirection: 'column',
+
+            '.modal-input-margin': {
+                marginTop: '20px',
+                marginBottom: '20px',
+            },
         };
     }
 );

@@ -11,7 +11,7 @@ type ModalComponentProps = {
 export const ModalComponent: React.FC<ModalComponentProps> = ({
     children,
     isOpen,
-    onClose
+    onClose,
 }) => {
 
     if(!isOpen) {
@@ -24,13 +24,12 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
                 <div className="modal-content">
                     <div className="modal-header">
                         <span className="close" onClick={onClose}>&times;</span>
-                        <h2>Modal Header</h2>
+                        <h2>Input personal data</h2>
                     </div>
                     <div className="modal-body">
                         {children}
                     </div>
                     <div className="modal-footer">
-                    <h3>Modal Footer</h3>
                     </div>
                 </div>
             </div>

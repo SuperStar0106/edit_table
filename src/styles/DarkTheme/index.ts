@@ -31,7 +31,8 @@ const themeColors = {
     errorMedium: '#FF4557',
     errorDark: '#FF4557',
 
-    white: '#ffffff'
+    white: '#ffffff',
+    black: '#000000',
   }
 };
 

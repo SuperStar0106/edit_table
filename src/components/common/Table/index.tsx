@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 
 import { ButtonComponent } from "../Button";
 import { ThComponent } from "../Th";
+import { TableCellComponent } from "../TableCell";
 
 import { TableComponentStyle } from "./index.style";
 import { IPerson } from "../../../models";
 
 type TableComponentProps = {
     person: IPerson[];
+    openModal: (row: IPerson | null) => void;
 };
 
 export const TableComponent: React.FC<TableComponentProps> = (props) => {
-    const { person } = props;
+    const { person, openModal } = props;
     const [sortField, setSortField] = useState<keyof IPerson>('');
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [selectedPerson, setSelectedPerson] = useState<IPerson | null>(null);
 
     const handleSort = (field: keyof IPerson) => {
         setSortField(field);
@@ -74,15 +77,28 @@ export const TableComponent: React.FC<TableComponentProps> = (props) => {
                     {
                         sortedData.map((row, index) => {
                             return (
-                                <tr>
+                                <tr key={row.id}>
                                     <td>{index+1}</td>
-                                    <td>{row.first_name}</td>
-                                    <td>{row.last_name}</td>
-                                    <td>{row.email}</td>
-                                    <td>{row.age}</td>
+                                    <TableCellComponent
+                                        value={row.first_name}
+                                    />
+                                    <TableCellComponent
+                                        value={row.last_name}
+                                    />
+                                    <TableCellComponent
+                                        value={row.email}
+                                    />
+                                    <TableCellComponent
+                                        value={row.age}
+                                    />
                                     <td>
                                         <div className="div_align">
-                                            <ButtonComponent type="submit">Edit</ButtonComponent>
+                                            <ButtonComponent
+                                                type="submit"
+                                                onClick={() => openModal(row)}
+                                            >
+                                                Edit
+                                            </ButtonComponent>
                                             <ButtonComponent type="submit">Delete</ButtonComponent>
                                         </div>
                                     </td>
