@@ -35,21 +35,28 @@ export const TableView: React.FC<TableViewProps> = (props) => {
      const { data } = props;
 
      const [isModalOpen, setIsModalOpen] = useState(false);
-     const [firstName, setFirstName] = useState(defaultValues.first_name);
-     const [lastName, setLastName] = useState(defaultValues.last_name);
-     const [email, setEmail] = useState(defaultValues.email);
-     const [age, setAge] = useState(defaultValues.age);
+     const [editingRow, setEditingRow] = useState<IPerson | null>(null);
+     const [firstName, setFirstName] = useState<string>(defaultValues.first_name);
+     const [lastName, setLastName] = useState<string>(defaultValues.last_name);
+     const [email, setEmail] = useState<string>(defaultValues.email);
+     const [age, setAge] = useState<number>(defaultValues.age);
 
-     const { register, handleSubmit, formState: { errors, isValid }, setValue, getValues, watch } = useForm<IPerson>({
+     const { register, handleSubmit, formState: { errors, isValid }, setValue, getValues, watch } = useForm<Pick<IPerson, 'first_name' | 'last_name' | 'email' | 'age'>>({
           resolver: yupResolver(schema),
-          defaultValues: defaultValues
+          // defaultValues: defaultValues
      });
 
      useEffect(() => {
-          console.log(isValid);
-     }, [isValid]);
+          setFirstName(editingRow ? editingRow.first_name : '');
+          setLastName(editingRow ? editingRow.last_name : '');
+          setEmail(editingRow ? editingRow.email : '');
+          setAge(editingRow ? editingRow.age : 0);
+          console.log('editingRow: ', editingRow);
+          console.log('isValid: ', isValid);
+     }, [editingRow, isValid]);
 
-     const openModal = () => {
+     const openModal = (row: IPerson | null) => {
+          setEditingRow(row);
           setIsModalOpen(true);
      };
 
@@ -57,11 +64,27 @@ export const TableView: React.FC<TableViewProps> = (props) => {
           setIsModalOpen(false);
      };
 
+     const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          setFirstName(e.target.value);
+     };
+
+     const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          setLastName(e.target.value);
+     };
+
+     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          setEmail(e.target.value);
+     };
+
+     const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          setAge(Number(e.target.value));
+     };
+
      return (
           <TableViewSytle>
                <ButtonComponent 
                     type="submit" 
-                    onClick={openModal}
+                    onClick={() => openModal(defaultValues)}
                >
                     Add New
                </ButtonComponent>
@@ -75,7 +98,9 @@ export const TableView: React.FC<TableViewProps> = (props) => {
                                    label="Input First Name"
                                    name="first_name"
                                    register={register}
-                                   error={!!errors.first_name}
+                                   // error={!!errors.first_name}
+                                   value={firstName ? firstName : ''}
+                                   onChange={handleFirstNameChange}
                               />
                          </div>
                          <div className="modal-input-margin">
@@ -84,6 +109,8 @@ export const TableView: React.FC<TableViewProps> = (props) => {
                                    name="last_name"
                                    register={register}
                                    error={!!errors.last_name}
+                                   value={lastName ? lastName : ''}
+                                   onChange={handleLastNameChange}
                               />
                          </div>
                          <div className="modal-input-margin">
@@ -92,6 +119,8 @@ export const TableView: React.FC<TableViewProps> = (props) => {
                                    name="email"
                                    register={register}
                                    error={!!errors.email}
+                                   value={email ? email : ''}
+                                   onChange={handleEmailChange}
                               />
                          </div>
                          <div className="modal-input-margin">
@@ -100,6 +129,8 @@ export const TableView: React.FC<TableViewProps> = (props) => {
                                    name="age"
                                    register={register}
                                    error={!!errors.age}
+                                   value={age ? age : 0}
+                                   onChange={handleAgeChange}
                               />
                          </div>
                         <div className="button-container">

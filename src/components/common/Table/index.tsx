@@ -9,7 +9,7 @@ import { IPerson } from "../../../models";
 
 type TableComponentProps = {
     person: IPerson[];
-    openModal: () => void;
+    openModal: (row: IPerson | null) => void;
 };
 
 export const TableComponent: React.FC<TableComponentProps> = (props) => {
@@ -33,12 +33,6 @@ export const TableComponent: React.FC<TableComponentProps> = (props) => {
         }
         return 0;
     });
-
-    const handleEdit = (selectedPerson: IPerson) => {
-        setSelectedPerson(selectedPerson);
-        openModal();
-        console.log(selectedPerson);
-    };
 
     return (
         <TableComponentStyle>
@@ -101,7 +95,7 @@ export const TableComponent: React.FC<TableComponentProps> = (props) => {
                                         <div className="div_align">
                                             <ButtonComponent
                                                 type="submit"
-                                                onClick={() => handleEdit(row)}
+                                                onClick={() => openModal(row)}
                                             >
                                                 Edit
                                             </ButtonComponent>

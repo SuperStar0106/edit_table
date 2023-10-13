@@ -55,6 +55,7 @@ export const InputComponent: React.FC<InputComponentProps> = (props) => {
         {...(register && register(fieldName!, options))}
         onFocus={onFocus}
         onBlur={onBlur}
+        onChange={rest.onChange}
       />
     </Box>
   </InputComponentStyle>
